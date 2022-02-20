@@ -33,8 +33,8 @@ vim-coffee-script https://github.com/kchmck/vim-coffee-script
 vim-colors-solarized https://github.com/altercation/vim-colors-solarized
 vim-indent-object https://github.com/michaeljsmith/vim-indent-object
 vim-less https://github.com/groenewege/vim-less
-vim-pyte https://github.com/therubymug/vim-pyte
-vim-snipmate https://github.com/garbas/vim-snipmate
+vim-pyte https://github.com/therubymug/vim-pyt""e
+# vim-snipmate https://github.com/garbas/vim-snipmate
 vim-snippets https://github.com/honza/vim-snippets
 vim-surround https://github.com/tpope/vim-surround
 vim-expand-region https://github.com/terryma/vim-expand-region

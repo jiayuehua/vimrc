@@ -425,5 +425,4 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 set relativenumber
 let g:indentLine_setColors = 0
-let g:snipMate = { 'snippet_version' : 1 }
 noremap gV `[v`]
