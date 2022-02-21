@@ -26,7 +26,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'terryma/vim-expand-region'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/vim-easyoperator-line'
-Plug 'kien/rainbow_parentheses.vim'
+"Plug 'kien/rainbow_parentheses.vim'
 "Plug 'kana/vim-operator-user'
 "Plug 'rhysd/vim-clang-format'
 "Plug 'chiel92/vim-autoformat'
@@ -430,10 +430,10 @@ let g:rbpt_colorpairs = [
 
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
 set relativenumber
 let g:indentLine_setColors = 0
 "au BufEnter *.cpp set makeprg=g++\ -g\ -Wall\ -Wextra\ -O0\ --std=c++2a\ %\ -o\ %<
