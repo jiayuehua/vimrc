@@ -27,6 +27,12 @@ Plug 'terryma/vim-expand-region'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/vim-easyoperator-line'
 Plug 'kien/rainbow_parentheses.vim'
+"Plug 'kana/vim-operator-user'
+"Plug 'rhysd/vim-clang-format'
+"Plug 'chiel92/vim-autoformat'
+"Plug 'pboettch/vim-cmake-syntax'
+
+
 "Plug 'kien/ctrlp.vim' 
 "if has('nvim')
   "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -148,7 +154,11 @@ autocmd VimResized * :wincmd =              " Realign vim window size
 autocmd InsertLeave * set nopaste           " Saves a <C-P>
 
 " Remember last cursor postion, :h last-position-jump
-set viminfo='10,\"10,<50,s10,%,h,f10
+"set viminfo='10,\"10,<50,s10,%,h,f10
+"autocmd! BufReadPost *
+      "\ if line("'\"") > 0 && line("'\"") <= line("$") |
+      "\     exe "normal! g`\"" |
+      "\ endif
 
 
 "
@@ -183,7 +193,6 @@ set nocompatible
 set noeb
 " 在处理未保存或只读文件的时候，弹出确认
 set confirm
-" 自动缩进
 set cindent
 " Tab键的宽度
 set tabstop=2
@@ -239,7 +248,8 @@ set report=0
 
 
 "set completeopt=c,menu
-"set showcmd
+"set completeopt=longest,menu
+set showcmd
 set ai!             " 设置自动缩进
 "vmap <C-c> "+y
 "vmap <C-x> "+d
@@ -252,9 +262,9 @@ nmap wc     <C-w>c
 nmap ws     <C-w>s
 nmap ss :wa<cr>
 "imap <C-d> <Esc>:wa<cr>i<Right>
-"map <F5> :cn<cr>
+map <F5> :cn<cr>
 nmap <F6> :cp<cr>
-"nmap <F9> :bn<cr>
+nmap <F9> :bn<cr>
 nmap <F10> :bp<cr>
 "---------- plugins------------
 " winManager
@@ -287,8 +297,8 @@ map <leader>u <plug>NERDCommenterUncomment
 "map <leader>b <plug>NERDCommenterAlignBoth
 " NERDTree
 map <F4> :NERDTreeToggle<CR>
-"command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-                 "\ | wincmd p | diffthis
+command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+                 \ | wincmd p | diffthis
 "let g:indent_guides_auto_colors = 0 
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3 
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4 
@@ -323,6 +333,7 @@ endfunction
 vmap <silent> <expr> p <sid>Repl()
 nnoremap <CR> G
 nnoremap <BS> gg
+"noremap gV `[v`]
 map q: :q
 set spell
 inoremap < <><LEFT>
@@ -330,17 +341,17 @@ inoremap ll <<
 inoremap lt <
 "nmap  <Leader><Leader> V
 " 输入一个字符时，如果下一个字符也是括号，则删除它，避免出现重复字符
-function! RemoveNextDoubleChar(char)
-  let l:line = getline(".")
-  let l:next_char = l:line[col(".")] " 取得当前光标后一个字符
+"function! RemoveNextDoubleChar(char)
+  "let l:line = getline(".")
+  "let l:next_char = l:line[col(".")] " 取得当前光标后一个字符
 
-  if a:char == l:next_char
-    execute "normal! l"
-  else
-    execute "normal! i" . a:char . ""
-  end
-endfunction
-inoremap > <ESC>:call RemoveNextDoubleChar('>')<CR>a
+  "if a:char == l:next_char
+    "execute "normal! l"
+  "else
+    "execute "normal! i" . a:char . ""
+  "end
+"endfunction
+"inoremap > <ESC>:call RemoveNextDoubleChar('>')<CR>a
 "vmap <Leader>y "+y
 "vmap <Leader>d "+d
 "nmap <Leader>p "+p
@@ -425,4 +436,30 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 set relativenumber
 let g:indentLine_setColors = 0
-noremap gV `[v`]
+"au BufEnter *.cpp set makeprg=g++\ -g\ -Wall\ -Wextra\ -O0\ --std=c++2a\ %\ -o\ %<
+"au BufEnter *.c set makeprg=gcc\ -g\ -Wall\ -Wextra\ -O0\ %\ -o\ %<
+"au BufWritePost *.c silent make
+"au BufWritePost *.cpp silent make
+
+let g:clang_format#style_options = {
+      \ "AccessModifierOffset" : -4,
+      \ "AllowShortIfStatementsOnASingleLine" : "true",
+      \ "AlwaysBreakTemplateDeclarations" : "true",
+      \ "Standard" : "C++11"}
+
+" map to <Leader>cf in C++ code
+"autocmd FileType c,cpp nnoremap <buffer><Leader>f :<C-u>ClangFormat<CR>
+"autocmd FileType c,cpp vnoremap <buffer><Leader>f :ClangFormat<CR*>
+"autocmd FileType cmake,vim,python,cpp  nnoremap <buffer><Leader>f :<C-u>Autoformat<CR>
+"autocmd FileType cmake,vim,python,cpp vnoremap <buffer><Leader>f :Autoformat<CR>
+"autocmd FileType cmake,vim,python,cpp nnoremap <buffer><Leader>f :<C-u>AutoFormat<CR>
+"autocmd FileType cmake,vim,python,cpp vnoremap <buffer><Leader>f :AutoFormat<CR>
+" if you install vim-operator-user
+autocmd FileType c,cpp map <buffer><Leader>x <Plug>(operator-clang-format)
+" Toggle auto formatting:
+nmap <Leader>C :ClangFormatAutoToggle<CR>
+"au BufWrite *.cpp :Autoformat
+"au BufWrite *.c :Autoformat
+"au BufWrite *.h :Autoformat
+
+noremap <leader>cr :py3f /home/rob/openSrc/llvm-project/clang/tools/clang-rename/clang-rename.py<cr>
