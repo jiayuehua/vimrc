@@ -111,35 +111,33 @@ let g:multi_cursor_quit_key            = '<Esc>'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" => lightline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""let g:lightline = {
-      ""\ 'colorscheme': 'wombat',
-      ""\ 'active': {
-      ""\   'left': [ ['mode', 'paste'],
-      ""\             ['fugitive', 'readonly', 'filename', 'modified'] ],
-      ""\   'right': [ [ 'lineinfo' ], ['percent'] ]
-      ""\ },
-      ""\ 'component': {
-      ""\   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
-      ""\   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-      ""\   'fugitive': '%{exists("*FugitiveHead")?FugitiveHead():""}'
-      ""\ },
-      ""\ 'component_visible_condition': {
-      ""\   'readonly': '(&filetype!="help"&& &readonly)',
-      ""\   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-      ""\   'fugitive': '(exists("*FugitiveHead") && ""!=FugitiveHead())'
-      ""\ },
-      ""\ 'separator': { 'left': ' ', 'right': ' ' },
-      ""\ 'subseparator': { 'left': ' ', 'right': ' ' }
-      ""\ }
+set showmode
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ 
+      \             [ 'readonly', 'filename', 'modified'] ],
+      \   'right': [ [ 'lineinfo' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
+      \ },
+      \ 'separator': { 'left': ' ', 'right': ' ' },
+      \ 'subseparator': { 'left': ' ', 'right': ' ' }
+      \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" => Vimroom
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
-
+"let g:goyo_width=100
+"let g:goyo_margin_top = 2
+"let g:goyo_margin_bottom = 2
+"nnoremap <silent> <leader>z :Goyo<cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

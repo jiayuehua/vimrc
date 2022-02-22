@@ -26,6 +26,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'terryma/vim-expand-region'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/vim-easyoperator-line'
+Plug 'sainnhe/gruvbox-material'
 "Plug 'kien/rainbow_parentheses.vim'
 "Plug 'kana/vim-operator-user'
 "Plug 'rhysd/vim-clang-format'
@@ -335,7 +336,7 @@ nnoremap <CR> G
 nnoremap <BS> gg
 "noremap gV `[v`]
 map q: :q
-set spell
+set nospell
 inoremap < <><LEFT>
 inoremap ll <<
 inoremap lt <
@@ -461,5 +462,17 @@ nmap <Leader>C :ClangFormatAutoToggle<CR>
 "au BufWrite *.cpp :Autoformat
 "au BufWrite *.c :Autoformat
 "au BufWrite *.h :Autoformat
+        " Important!!
+        if has('termguicolors')
+          set termguicolors
+        endif
+        " For dark version.
+        set background=dark
+        " Set contrast.
+        " This configuration option should be placed before `colorscheme gruvbox-material`.
+        " Available values: 'hard', 'medium'(default), 'soft'
+        let g:gruvbox_material_background = 'soft'
+        colorscheme gruvbox-material
+
 
 noremap <leader>cr :py3f /home/rob/openSrc/llvm-project/clang/tools/clang-rename/clang-rename.py<cr>
