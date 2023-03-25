@@ -18,11 +18,11 @@ call pathogen#helptags()
 """""""""""""""""""""""""""""""
 "" => bufExplorer plugin
 """""""""""""""""""""""""""""""
-""let g:bufExplorerDefaultHelp=0
-""let g:bufExplorerShowRelativePath=1
-""let g:bufExplorerFindActive=1
-""let g:bufExplorerSortBy='name'
-""map <leader>o :BufExplorer<cr>
+"let g:bufExplorerDefaultHelp=0
+"let g:bufExplorerShowRelativePath=1
+"let g:bufExplorerFindActive=1
+"let g:bufExplorerSortBy='name'
+"map <leader>o :BufExplorer<cr>
 
 
 """""""""""""""""""""""""""""""
@@ -37,8 +37,8 @@ call pathogen#helptags()
 """""""""""""""""""""""""""""""
 "let g:yankstack_yank_keys = ['y', 'd']
 
-nmap <C-p> <Plug>yankstack_substitute_older_paste
-nmap <C-n> <Plug>yankstack_substitute_newer_paste
+"nmap <C-p> <Plug>yankstack_substitute_older_paste
+"nmap <C-n> <Plug>yankstack_substitute_newer_paste
 
 
 """"""""""""""""""""""""""""""
@@ -94,17 +94,17 @@ map <leader>nf :NERDTreeFind<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" => vim-multiple-cursors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:multi_cursor_use_default_mapping=0
+"let g:multi_cursor_use_default_mapping=0
 
-" Default mapping
-let g:multi_cursor_start_word_key      = '<C-s>'
-let g:multi_cursor_select_all_word_key = '<A-s>'
-let g:multi_cursor_start_key           = 'g<C-s>'
-let g:multi_cursor_select_all_key      = 'g<A-s>'
-let g:multi_cursor_next_key            = '<C-s>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
+"" Default mapping
+"let g:multi_cursor_start_word_key      = '<C-s>'
+"let g:multi_cursor_select_all_word_key = '<A-s>'
+"let g:multi_cursor_start_key           = 'g<C-s>'
+"let g:multi_cursor_select_all_key      = 'g<A-s>'
+"let g:multi_cursor_next_key            = '<C-s>'
+"let g:multi_cursor_prev_key            = '<C-p>'
+"let g:multi_cursor_skip_key            = '<C-x>'
+"let g:multi_cursor_quit_key            = '<Esc>'
 
 
 
@@ -132,36 +132,8 @@ let g:multi_cursor_quit_key            = '<Esc>'
       ""\ 'subseparator': { 'left': ' ', 'right': ' ' }
       ""\ }
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" => Vimroom
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
 
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" => Git gutter (Git diff)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:gitgutter_enabled=0
-"nnoremap <silent> <leader>d :GitGutterToggle<cr>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" => EditorConfig (project-specific EditorConfig rule)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" => Fugitive
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Copy the link to the line of a Git repository to the clipboard
-"nnoremap <leader>v :.GBrowse!<CR>
-"xnoremap <leader>v :'<'>GBrowse!<CR>
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" => Telescope
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

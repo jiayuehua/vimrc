@@ -7,6 +7,10 @@ if empty(glob('~/.vim_runtime/autoload/plug.vim'))
     finish
 endif
 call plug#begin('~/.vim_runtime/plugged')
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 "Plug 'mg979/vim-visual-multi'
 "Plug  'kshenoy/vim-signature'
 " My Bundles here:
@@ -384,9 +388,9 @@ inoremap lt <
 "map <Leader>l <Plug>(easymotion-lineforward)
 "map <Leader>h <Plug>(easymotion-linebackward)
 
-let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
+"let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+"let g:EasyMotion_smartcase = 1
+"let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
 " `s{char}{label}`
@@ -408,7 +412,6 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 "nmap p<Leader>L <Plug>(easyoperator-line-yank)
 
 
-:packadd! editexisting
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
     \ ['Darkblue',    'SeaGreen3'],
@@ -465,3 +468,69 @@ let g:clang_format#style_options = {
 "au BufWrite *.h :Autoformat
 
 "noremap <leader>cr :py3f /home/rob/openSrc/llvm-project/clang/tools/clang-rename/clang-rename.py<cr>
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+   -- 支持的语言
+    ensure_installed = { "c", "cpp"},
+    -- 启用代码高亮
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false
+    },
+    --启用增量选择
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = '<CR>',
+            node_incremental = '<CR>',
+            node_decremental = '<BS>',
+            scope_incremental = '<TAB>'
+        }
+    },
+  textobjects = {
+    select = {
+      enable = true,
+
+      -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
+
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        -- You can optionally set descriptions to the mappings (used in the desc parameter of
+        -- nvim_buf_set_keymap) which plugins like which-key display
+        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+      },
+      -- You can choose the select mode (default is charwise 'v')
+      --
+      -- Can also be a function which gets passed a table with the keys
+      -- * query_string: eg '@function.inner'
+      -- * method: eg 'v' or 'o'
+      -- and should return the mode ('v', 'V', or '<c-v>') or a table
+      -- mapping query_strings to modes.
+      selection_modes = {
+        ['@parameter.outer'] = 'v', -- charwise
+        ['@function.outer'] = 'V', -- linewise
+        ['@class.outer'] = '<c-v>', -- blockwise
+      },
+      -- If you set this to `true` (default is `false`) then any textobject is
+      -- extended to include preceding or succeeding whitespace. Succeeding
+      -- whitespace has priority in order to act similarly to eg the built-in
+      -- `ap`.
+      --
+      -- Can also be a function which gets passed a table with the keys
+      -- * query_string: eg '@function.inner'
+      -- * selection_mode: eg 'v'
+      -- and should return true of false
+      include_surrounding_whitespace = true,
+    },
+  },
+}
+EOF
+" Find files using Telescope command-line sugar.
+nmap <Leader>ff :Telescope find_files<CR>
+nmap <Leader>fg :Telescope live_grep<CR>
+nmap <Leader>fb :Telescope buffers<CR>
+nmap <Leader>ft :Telescope help_tags<CR>
