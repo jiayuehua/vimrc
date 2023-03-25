@@ -7,26 +7,26 @@ if empty(glob('~/.vim_runtime/autoload/plug.vim'))
     finish
 endif
 call plug#begin('~/.vim_runtime/plugged')
-Plug 'mg979/vim-visual-multi'
-Plug  'kshenoy/vim-signature'
+"Plug 'mg979/vim-visual-multi'
+"Plug  'kshenoy/vim-signature'
 " My Bundles here:
 "Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 "Plug 'majutsushi/tagbar'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
 "let g:AutoPairs['<']='>'
-Plug 'flazz/vim-colorschemes'
+"Plug 'flazz/vim-colorschemes'
 "Plug 'honza/vim-snippets'
-Plug 'tpope/vim-dispatch'
+"Plug 'tpope/vim-dispatch'
 "Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'terryma/vim-expand-region'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/vim-easyoperator-line'
-"Plug 'kien/rainbow_parentheses.vim'
+"Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-repeat'
+"Plug 'Lokaltog/vim-easymotion'
+"Plug 'terryma/vim-expand-region'
+"Plug 'haya14busa/incsearch.vim'
+"Plug 'haya14busa/vim-easyoperator-line'
+Plug 'kien/rainbow_parentheses.vim'
 "Plug 'kana/vim-operator-user'
 "Plug 'rhysd/vim-clang-format'
 "Plug 'chiel92/vim-autoformat'
@@ -217,10 +217,10 @@ set gdefault
 " 总是显示状态行
 set laststatus=1
 "set statusline=%-10.3n  "buffer number"
-map <silent> <leader>1 :diffget 1<CR> :diffupdate<CR>
-map <silent> <leader>2 :diffget 2<CR> :diffupdate<CR>
-map <silent> <leader>3 :diffget 3<CR> :diffupdate<CR>
-map <silent> <leader>4 :diffget 4<CR> :diffupdate<CR>
+"map <silent> <leader>1 :diffget 1<CR> :diffupdate<CR>
+"map <silent> <leader>2 :diffget 2<CR> :diffupdate<CR>
+"map <silent> <leader>3 :diffget 3<CR> :diffupdate<CR>
+"map <silent> <leader>4 :diffget 4<CR> :diffupdate<CR>
 " 侦测文件类型
 filetype on
 " 为特定文件类型载入相关缩进文件
@@ -297,6 +297,8 @@ map <leader>u <plug>NERDCommenterUncomment
 "map <leader>b <plug>NERDCommenterAlignBoth
 " NERDTree
 map <F4> :NERDTreeToggle<CR>
+map <F5> :cn<CR>
+map <F6> :cp<CR>
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
                  \ | wincmd p | diffthis
 "let g:indent_guides_auto_colors = 0 
@@ -308,12 +310,12 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 "onoremap <Tab> <Esc>
 "inoremap <Tab> <Esc>`^
                                 
-nnoremap <leader>s  :Ack! -w <cword><CR>|   " Quick search word under cursor
+"nnoremap <leader>s  :Ack! -w <cword><CR>|   " Quick search word under cursor
 "nnoremap <Leader>o :CtrlP<CR>
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>e :e 
-nnoremap <Leader>v V
+"nnoremap <Leader>w :w<CR>
+"nnoremap <Leader>q :q<CR>
+"nnoremap <Leader>e :e 
+"nnoremap <Leader>v V
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -335,7 +337,7 @@ nnoremap <CR> G
 nnoremap <BS> gg
 "noremap gV `[v`]
 map q: :q
-set spell
+"set spell
 inoremap < <><LEFT>
 inoremap ll <<
 inoremap lt <
@@ -455,11 +457,11 @@ let g:clang_format#style_options = {
 "autocmd FileType cmake,vim,python,cpp nnoremap <buffer><Leader>f :<C-u>AutoFormat<CR>
 "autocmd FileType cmake,vim,python,cpp vnoremap <buffer><Leader>f :AutoFormat<CR>
 " if you install vim-operator-user
-autocmd FileType c,cpp map <buffer><Leader>x <Plug>(operator-clang-format)
-" Toggle auto formatting:
-nmap <Leader>C :ClangFormatAutoToggle<CR>
+"autocmd FileType c,cpp map <buffer><Leader>x <Plug>(operator-clang-format)
+"" Toggle auto formatting:
+"nmap <Leader>C :ClangFormatAutoToggle<CR>
 "au BufWrite *.cpp :Autoformat
 "au BufWrite *.c :Autoformat
 "au BufWrite *.h :Autoformat
 
-noremap <leader>cr :py3f /home/rob/openSrc/llvm-project/clang/tools/clang-rename/clang-rename.py<cr>
+"noremap <leader>cr :py3f /home/rob/openSrc/llvm-project/clang/tools/clang-rename/clang-rename.py<cr>

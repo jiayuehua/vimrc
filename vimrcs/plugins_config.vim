@@ -161,3 +161,7 @@ nnoremap <silent> <leader>z :Goyo<cr>
 "" Copy the link to the line of a Git repository to the clipboard
 "nnoremap <leader>v :.GBrowse!<CR>
 "xnoremap <leader>v :'<'>GBrowse!<CR>
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" => Telescope
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
