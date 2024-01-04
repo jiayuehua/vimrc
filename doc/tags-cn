@@ -132,8 +132,6 @@ $VIMRUNTIME	starting.cnx	/*$VIMRUNTIME*
 'cole'	options.cnx	/*'cole'*
 'colorcolumn'	options.cnx	/*'colorcolumn'*
 'columns'	options.cnx	/*'columns'*
-'com'	options.cnx	/*'com'*
-'comments'	options.cnx	/*'comments'*
 'commentstring'	options.cnx	/*'commentstring'*
 'compatible'	options.cnx	/*'compatible'*
 'complete'	options.cnx	/*'complete'*
@@ -2325,8 +2323,6 @@ $VIMRUNTIME	starting.cnx	/*$VIMRUNTIME*
 :lgetfile	quickfix.cnx	/*:lgetfile*
 :lgr	quickfix.cnx	/*:lgr*
 :lgrep	quickfix.cnx	/*:lgrep*
-:lgrepa	quickfix.cnx	/*:lgrepa*
-:lgrepadd	quickfix.cnx	/*:lgrepadd*
 :lh	helphelp.cnx	/*:lh*
 :lhelpgrep	helphelp.cnx	/*:lhelpgrep*
 :list	various.cnx	/*:list*
@@ -3875,8 +3871,6 @@ E520	options.cnx	/*E520*
 E521	options.cnx	/*E521*
 E522	options.cnx	/*E522*
 E523	options.cnx	/*E523*
-E524	options.cnx	/*E524*
-E525	options.cnx	/*E525*
 E526	options.cnx	/*E526*
 E527	options.cnx	/*E527*
 E528	options.cnx	/*E528*
@@ -4476,7 +4470,6 @@ W13	message.cnx	/*W13*
 W14	message.cnx	/*W14*
 W15	repeat.cnx	/*W15*
 W16	message.cnx	/*W16*
-W17	arabic.cnx	/*W17*
 W18	syntax.cnx	/*W18*
 WORD	motion.cnx	/*WORD*
 WWW	intro.cnx	/*WWW*
@@ -5821,7 +5814,6 @@ g:vimsyn_embed	syntax.cnx	/*g:vimsyn_embed*
 g:vimsyn_folding	syntax.cnx	/*g:vimsyn_folding*
 g:vimsyn_maxlines	syntax.cnx	/*g:vimsyn_maxlines*
 g:vimsyn_minlines	syntax.cnx	/*g:vimsyn_minlines*
-g:vimsyn_noerror	syntax.cnx	/*g:vimsyn_noerror*
 g:zip_nomax	pi_zip.cnx	/*g:zip_nomax*
 g:zip_shq	pi_zip.cnx	/*g:zip_shq*
 g:zip_unzipcmd	pi_zip.cnx	/*g:zip_unzipcmd*
@@ -6942,7 +6934,6 @@ object-select	motion.cnx	/*object-select*
 objects	index.cnx	/*objects*
 obtaining-exted	netbeans.cnx	/*obtaining-exted*
 ocaml.vim	syntax.cnx	/*ocaml.vim*
-octal	eval.cnx	/*octal*
 octal-number	options.cnx	/*octal-number*
 oldfiles-variable	eval.cnx	/*oldfiles-variable*
 ole-activation	if_ole.cnx	/*ole-activation*
@@ -7520,16 +7511,12 @@ spoon	os_unix.cnx	/*spoon*
 spup.vim	syntax.cnx	/*spup.vim*
 sql-adding-dialects	ft_sql.cnx	/*sql-adding-dialects*
 sql-completion	ft_sql.cnx	/*sql-completion*
-sql-completion-columns	ft_sql.cnx	/*sql-completion-columns*
 sql-completion-customization	ft_sql.cnx	/*sql-completion-customization*
 sql-completion-dynamic	ft_sql.cnx	/*sql-completion-dynamic*
 sql-completion-filetypes	ft_sql.cnx	/*sql-completion-filetypes*
 sql-completion-maps	ft_sql.cnx	/*sql-completion-maps*
-sql-completion-procedures	ft_sql.cnx	/*sql-completion-procedures*
 sql-completion-static	ft_sql.cnx	/*sql-completion-static*
-sql-completion-tables	ft_sql.cnx	/*sql-completion-tables*
 sql-completion-tutorial	ft_sql.cnx	/*sql-completion-tutorial*
-sql-completion-views	ft_sql.cnx	/*sql-completion-views*
 sql-dialects	ft_sql.cnx	/*sql-dialects*
 sql-macros	ft_sql.cnx	/*sql-macros*
 sql-matchit	ft_sql.cnx	/*sql-matchit*
@@ -7953,11 +7940,8 @@ try-finally	eval.cnx	/*try-finally*
 try-nested	eval.cnx	/*try-nested*
 try-nesting	eval.cnx	/*try-nesting*
 tutor	usr_01.cnx	/*tutor*
-twice	if_cscop.cnx	/*twice*
 type()	eval.cnx	/*type()*
 type-mistakes	tips.cnx	/*type-mistakes*
-typecorr-settings	usr_41.cnx	/*typecorr-settings*
-typecorr.txt	usr_41.cnx	/*typecorr.txt*
 u	undo.cnx	/*u*
 uganda	uganda.cnx	/*uganda*
 uganda.txt	uganda.cnx	/*uganda.txt*

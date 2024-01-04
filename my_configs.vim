@@ -2,32 +2,81 @@
 
 " Plugins managed by https://github.com/junegunn/vim-plug
 "
-if empty(glob('~/.vim_runtime/autoload/plug.vim'))
+if empty(glob('~rob/.vim_runtime/autoload/plug.vim'))
     echomsg "*** vim-plug is missing, see https://github.com/junegunn/vim-plug"
     finish
 endif
-call plug#begin('~/.vim_runtime/plugged')
+call plug#begin('~rob/.vim_runtime/plugged')
+Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'folke/trouble.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'neovim/nvim-lspconfig'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'wellle/targets.vim'
+Plug 'ervandew/supertab'
+Plug 'ggandor/lightspeed.nvim'
+"Plug 'unblevable/quick-scope'
+
+Plug 'ellisonleao/glow.nvim'
+Plug 'simrat39/symbols-outline.nvim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+
+
+Plug 'sheerun/vim-polyglot'
+
+Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'nvim-telescope/telescope-ui-select.nvim'
+Plug 'sindrets/diffview.nvim'
+  "magit
+Plug 'TimUntersberger/neogit'
+"Plug 'hrsh7th/cmp-nvim-lsp'
+"Plug 'hrsh7th/cmp-buffer'
+"Plug 'hrsh7th/cmp-path'
+"Plug 'hrsh7th/cmp-cmdline'
+"Plug 'hrsh7th/nvim-cmp'
+
+" For vsnip users.
+"Plug 'hrsh7th/cmp-vsnip'
+"Plug 'hrsh7th/vim-vsnip'
+
+" For luasnip users.
+ "Plug 'L3MON4D3/LuaSnip'
+ "Plug 'saadparwaiz1/cmp_luasnip'
+
+" For ultisnips users.
+" Plug 'SirVer/ultisnips'
+" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
+" For snippy users.
+ "Plug 'dcampos/nvim-snippy'
+ "Plug 'dcampos/cmp-snippy'
 "Plug 'mg979/vim-visual-multi'
 "Plug  'kshenoy/vim-signature'
+
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+"
+
 " My Bundles here:
-"Plug 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 "Plug 'majutsushi/tagbar'
-"Plug 'jiangmiao/auto-pairs'
-"let g:AutoPairs['<']='>'
+Plug 'jiangmiao/auto-pairs'
 "Plug 'flazz/vim-colorschemes'
 "Plug 'honza/vim-snippets'
 "Plug 'tpope/vim-dispatch'
 "Plug 'tpope/vim-fugitive'
-"Plug 'tpope/vim-surround'
-"Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 "Plug 'Lokaltog/vim-easymotion'
-"Plug 'terryma/vim-expand-region'
+Plug 'terryma/vim-expand-region'
 "Plug 'haya14busa/incsearch.vim'
 "Plug 'haya14busa/vim-easyoperator-line'
 Plug 'kien/rainbow_parentheses.vim'
@@ -35,6 +84,12 @@ Plug 'kien/rainbow_parentheses.vim'
 "Plug 'rhysd/vim-clang-format'
 "Plug 'chiel92/vim-autoformat'
 "Plug 'pboettch/vim-cmake-syntax'
+Plug 'mfussenegger/nvim-dap'
+Plug 'leoluz/nvim-dap-go'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'nvim-telescope/telescope-dap.nvim'
+Plug 'junegunn/goyo.vim'
 
 
 "Plug 'kien/ctrlp.vim' 
@@ -57,12 +112,60 @@ Plug 'kien/rainbow_parentheses.vim'
 "Plug 'elzr/vim-json', {'for': 'json'}
 "let g:vim_json_syntax_conceal = 0       " Do not hide quotes
 
-"Plug 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 "Plug 'altercation/vim-colors-solarized'
+Plug 'folke/which-key.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+
+Plug 'ibhagwan/fzf-lua'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+
+
 call plug#end()
 
-"let g:ackprg = 'ag --vimgrep --smart-case'
-"let g:ackhighlight = 1
+lua <<EOF
+require("trouble").setup(
+{
+  opts=
+{
+    icons = false,
+    fold_open = "v", -- icon used for open folds
+    fold_closed = ">", -- icon used for closed folds
+    indent_lines = false, -- add an indent guide below the fold icons
+    signs = {
+        -- icons / text used for a diagnostic
+        error = "error",
+        warning = "warn",
+        hint = "hint",
+        information = "info"
+    },
+    use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+},
+}
+
+
+
+)
+EOF
+lua <<EOF
+  require ("mason").setup()
+  require ("mason-lspconfig").setup( {
+  --      ensure_installed = {"clangd"}
+    }
+  )
+  
+EOF
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
+let g:ackprg = 'ag --vimgrep --smart-case'
+let g:ackhighlight = 1
 "cnoreabbrev Ag Ack!
 "cnoreabbrev ag Ack!
 "cnoreabbrev Af AckFile
@@ -94,23 +197,24 @@ set suffixes+=.a,.so,.la,.class,.pyc    " Ignore list for file completion
 set suffixes+=.jpg,.png,.gif,.pdf,.doc,.tar,.tgz,.gz,.bz2,.zip
 "set                textwidth=79        " Editing
 set backspace=indent,eol,start          " Editing
+set nofixendofline
 set formatoptions=tcqron1MB             " Formatting, MB for multi-byte chars
 silent! set formatoptions+=j            " Vim >= 7.3.541 only
 set wildmode=list:full                  " Misc: complete and list matched files
 set isfname-==                          " Misc: '=' is not part of filename
 set copyindent                          " Indenting
 set spelllang=en_us complete+=kspell    " Spell completion, see imap <C-K>
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
+"fun! CleanExtraSpaces()
+    "let save_cursor = getpos(".")
+    "let old_query = getreg('/')
+    "silent! %s/\s\+$//e
+    "call setpos('.', save_cursor)
+    "call setreg('/', old_query)
+"endfun
 
-if has("autocmd")
-    autocmd BufWritePre *.cpp,*.c,*.hpp,*.h,*.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-endif
+"if has("autocmd")
+    "autocmd BufWritePre *.cpp,*.c,*.hpp,*.h,*.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+"endif
 set synmaxcol=128 ttyfast    " Performance
 syntax sync minlines=50 maxlines=200    " Performance
 silent! set nowildignorecase            " Vim >= 7.3.072 only
@@ -167,15 +271,17 @@ autocmd InsertLeave * set nopaste           " Saves a <C-P>
 
 "
 " =================== jia vimrc ===============================================
-"colorscheme desert
+""colorscheme desert
+let g:goyo_width=120
+let g:goyo_height=50
 set number
-set diffopt=filler,iwhite
+set diffopt=filler
 " 设置当文件被改动时自动载入
 set autoread
 " quickfix模式
 "autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
 "代码补全 
-set completeopt=preview,menu 
+"set completeopt=preview,menu 
 "允许插件  
 filetype plugin on
 "共享剪贴板  
@@ -264,20 +370,16 @@ set ai!             " 设置自动缩进
 nmap wv     <C-w>v  
 nmap wc     <C-w>c 
 nmap ws     <C-w>s
-nmap ss :wa<cr>
+"nmap ss :wa<cr>
 "imap <C-d> <Esc>:wa<cr>i<Right>
-map <F5> :cn<cr>
+"map <F5> :cn<cr>
 nmap <F6> :cp<cr>
-nmap <F9> :bn<cr>
-nmap <F10> :bp<cr>
 "---------- plugins------------
 " winManager
 let g:winManagerWindowLayout='FileExplorer'
 nmap wm :WMToggle<cr>
 "nnoremap <silent> <F12> :A<CR>
 
-"grep
-nnoremap <silent> <F3> :Rgrep<CR>
 
 " minibufexpl
 let g:miniBufExplUseSingleClick = 1
@@ -314,12 +416,14 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 "onoremap <Tab> <Esc>
 "inoremap <Tab> <Esc>`^
                                 
-"nnoremap <leader>s  :Ack! -w <cword><CR>|   " Quick search word under cursor
+nnoremap <leader>s  :Ack! -w <cword><CR>|   " Quick search word under cursor
 "nnoremap <Leader>o :CtrlP<CR>
-"nnoremap <Leader>w :w<CR>
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader><leader> V
 "nnoremap <Leader>q :q<CR>
 "nnoremap <Leader>e :e 
 "nnoremap <Leader>v V
+
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -339,12 +443,12 @@ endfunction
 vmap <silent> <expr> p <sid>Repl()
 nnoremap <CR> G
 nnoremap <BS> gg
-"noremap gV `[v`]
-map q: :q
+noremap gV `[v`]
+"map q: :q
 "set spell
-inoremap < <><LEFT>
-inoremap ll <<
-inoremap lt <
+"inoremap < <><LEFT>
+"inoremap ll <<
+"inoremap lt <
 "nmap  <Leader><Leader> V
 " 输入一个字符时，如果下一个字符也是括号，则删除它，避免出现重复字符
 "function! RemoveNextDoubleChar(char)
@@ -413,32 +517,30 @@ inoremap lt <
 
 
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
+    \ ['brown',       'royalblue3'],
+    \ ['darkblue',    'seagreen3'],
+    \ ['darkgray',    'darkorchid3'],
     \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['darkcyan',    'royalblue3'],
+    \ ['darkred',     'seagreen3'],
+    \ ['darkmagenta', 'darkorchid3'],
     \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
+    \ ['gray',        'royalblue3'],
+    \ ['darkmagenta', 'darkorchid3'],
+    \ ['darkblue',    'firebrick3'],
+    \ ['darkgreen',   'royalblue3'],
+    \ ['darkcyan',    'seagreen3'],
+    \ ['darkred',     'darkorchid3'],
     \ ['red',         'firebrick3'],
     \ ]
 
-" 不加入这行, 防止黑色括号出现, 很难识别
-" \ ['black',       'SeaGreen3'],
-
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
+"let g:rbpt_max = 16
+"let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadChevrons
+au Syntax * RainbowParenthesesLoadBraces
 set relativenumber
 let g:indentLine_setColors = 0
 "au BufEnter *.cpp set makeprg=g++\ -g\ -Wall\ -Wextra\ -O0\ --std=c++2a\ %\ -o\ %<
@@ -468,10 +570,11 @@ let g:clang_format#style_options = {
 "au BufWrite *.h :Autoformat
 
 "noremap <leader>cr :py3f /home/rob/openSrc/llvm-project/clang/tools/clang-rename/clang-rename.py<cr>
+"
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
    -- 支持的语言
-    ensure_installed = { "c", "cpp"},
+    ensure_installed = { "c", "cpp","lua","go"},
     -- 启用代码高亮
     highlight = {
         enable = true,
@@ -481,11 +584,11 @@ require'nvim-treesitter.configs'.setup {
     incremental_selection = {
         enable = true,
         keymaps = {
-            init_selection = '<CR>',
-            node_incremental = '<CR>',
-            node_decremental = '<BS>',
-            scope_incremental = '<TAB>'
-        }
+            init_selection = '<cr>',
+            node_incremental = '<cr>',
+            node_decremental = '<bs>',
+            scope_incremental = '<tab>'
+        },
     },
   textobjects = {
     select = {
@@ -526,11 +629,475 @@ require'nvim-treesitter.configs'.setup {
       -- and should return true of false
       include_surrounding_whitespace = true,
     },
-  },
+},
 }
 EOF
-" Find files using Telescope command-line sugar.
+
+lua <<EOF
+local lsp_flags = {
+  -- This is the default in Nvim 0.7+
+  debounce_text_changes = 150,
+}
+require('lspconfig')['clangd'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
+-- require('lspconfig')['rust_analyzer'].setup{
+  --   on_attach = on_attach,
+    -- flags = lsp_flags,
+    -- Server-specific settings...
+   --  settings = {
+ --      ["rust-analyzer"] = {}
+   --  }
+-- }
+EOF
+
+lua <<EOF
+-- Setup language servers.
+
+
+-- Global mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Buffer local mappings.ol
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<space>k', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
+})
+
+EOF
+
+" find files using telescope command-line sugar.
 nmap <Leader>ff :Telescope find_files<CR>
 nmap <Leader>fg :Telescope live_grep<CR>
 nmap <Leader>fb :Telescope buffers<CR>
 nmap <Leader>ft :Telescope help_tags<CR>
+nmap <Leader>fc <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({sorting_strategy="ascending"})<cr>
+set diffopt+=linematch:50
+
+autocmd BufEnter * silent! lcd %:p:h
+
+
+"lua <<EOF
+  "-- Set up nvim-cmp.
+  "local cmp = require'cmp'
+
+  "cmp.setup({
+    "snippet = {
+      "-- REQUIRED - you must specify a snippet engine
+      "expand = function(args)
+        "--vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+
+         "require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        "-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        "-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      "end,
+    "},
+    "window = {
+     "--  completion = cmp.config.window.bordered(),
+     "--  documentation = cmp.config.window.bordered(),
+    "},
+
+
+    "mapping = cmp.mapping.preset.insert({
+      "['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      "['<C-f>'] = cmp.mapping.scroll_docs(4),
+      "['<C-Space>'] = cmp.mapping.complete(),
+      "['<C-e>'] = cmp.mapping.abort(),
+      "['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    "}),
+
+    "sources = cmp.config.sources({
+      "{ name = 'nvim_lsp' },
+      "{ name = 'vsnip' }, -- For vsnip users.
+      "-- { name = 'luasnip' }, -- For luasnip users.
+      "-- { name = 'ultisnips' }, -- For ultisnips users.
+      "-- { name = 'snippy' }, -- For snippy users.
+    "}, {
+      "{ name = 'buffer' },
+    "})
+  "})
+
+  "-- Set up lspconfig.
+  "local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  "-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  "require('lspconfig')['clangd'].setup {
+    "capabilities = capabilities
+  "}
+"EOF
+"
+" CocUninstall 删除插件
+" CocList extensions  列出扩展
+" Cocinstall 安装插件
+let g:coc_global_extensions = [
+            \'coc-vimlsp',
+            \'coc-clangd',
+            \'coc-pyright',
+            \'coc-word',
+            \'coc-snippets']
+set pumheight=10 " 显示最大补全
+highlight CocErrorLine cterm=undercurl ctermfg=Red " 将错误提醒改为 红线
+" 使用CocConfig
+function! SetupCommandAbbrs(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfunction
+call SetupCommandAbbrs('C', 'CocConfig')
+" 设置回车补全
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" GoTo code navigation.
+" 定义跳转
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
+" Remap for format selected buf
+xmap <leader>fm  <Plug>(coc-format)
+nmap <leader>fm  <Plug>(coc-format)
+
+" Apply the most preferred quickfix action to fix diagnostic on the current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap keys for applying code actions at the cursor position
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer
+nmap <leader>as  <Plug>(coc-codeaction-source)
+nmap  <leader>re <Plug>(coc-codeaction-refactor)
+
+" 跳转到帮助文档
+"nnoremap <silent> <LEADER>h :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+" set signcolumn=yes
+set updatetime=300
+autocmd CursorHold * silent call CocActionAsync('highlight') 
+
+" 代码片段 参考 https://blog.csdn.net/niuiic/article/details/117599130
+" CocCommand snippets.editSnippets 创建默认代码片段不推荐,推荐自定义位置
+" CocCommand snippets.openSnippetFiles 打开代码片段文件
+"
+"
+lua <<EOF
+local telescope_builtin = require("telescope.builtin")
+vim.keymap.set({ "n" }, "<leader>lds", function()
+telescope_builtin.lsp_document_symbols()
+end, { buffer = bufnr })
+
+require('telescope').load_extension('fzf')
+
+EOF
+
+
+lua <<EOF
+require("neogit").setup()
+local neogit = require("neogit")
+
+neogit.setup {
+  -- Each Integration is auto-detected through plugin presence, however, it can be disabled by setting to `false`
+  integrations = {
+    -- If enabled, use telescope for menu selection rather than vim.ui.select.
+    -- Allows multi-select and some things that vim.ui.select doesn't.
+    telescope = true,
+    -- Neogit only provides inline diffs. If you want a more traditional way to look at diffs, you can use `diffview`.
+    -- The diffview integration enables the diff popup.
+    --
+    -- Requires you to have `sindrets/diffview.nvim` installed.
+    diffview = true,
+
+    -- If enabled, uses fzf-lua for menu selection. If the telescope integration
+    -- is also selected then telescope is used instead
+    -- Requires you to have `ibhagwan/fzf-lua` installed.
+    fzf_lua = true,
+  },
+}
+EOF
+
+lua <<EOF
+
+local ok, dap = pcall(require, "dap")
+if not ok then return end
+
+vim.keymap.set("n", "<F5>", ":lua require'dap'.continue()<CR>")
+vim.keymap.set("n", "<F10>", ":lua require'dap'.step_over()<CR>")
+vim.keymap.set("n", "<F11>", ":lua require'dap'.step_into()<CR>")
+vim.keymap.set("n", "<F12>", ":lua require'dap'.step_out()<CR>")
+vim.keymap.set("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>")
+vim.keymap.set("n", "<leader>B", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
+vim.keymap.set("n", "<leader>lp", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
+vim.keymap.set("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>")
+vim.keymap.set("n", "<leader>dt", ":lua require'dap-go'.debug_test()<CR>")
+
+require("nvim-dap-virtual-text").setup()
+require('dap-go').setup()
+require("dapui").setup()
+
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+
+
+dap.adapters.cppdbg = {
+  id = 'cppdbg',
+  type = 'executable',
+  command = '/home/rob/.dap_cpp/extension/debugAdapters/bin/OpenDebugAD7',
+}
+dap.configurations.cpp = {
+  {
+    name = "Launch file",
+    type = "cppdbg",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopAtEntry = true,
+    setupCommands = {  
+    { 
+       text = '-enable-pretty-printing',
+       description =  'enable pretty printing',
+       ignoreFailures = false 
+    },
+},
+  },
+  {
+    name = 'Attach to gdbserver :1234',
+    type = 'cppdbg',
+    request = 'launch',
+    MIMode = 'gdb',
+    miDebuggerServerAddress = 'localhost:1234',  -- important
+    miDebuggerPath = '/usr/bin/gdb',
+    cwd = '${workspaceFolder}',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+  },
+}
+
+
+
+EOF
+
+lua <<EOF
+
+-- This is your opts table
+require("telescope").setup {
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+        -- even more opts
+      }
+
+      -- pseudo code / specification for writing custom displays, like the one
+      -- for "codeactions"
+      -- specific_opts = {
+      --   [kind] = {
+      --     make_indexed = function(items) -> indexed_items, width,
+      --     make_displayer = function(widths) -> displayer
+      --     make_display = function(displayer) -> function(e)
+      --     make_ordinal = function(e) -> string
+      --   },
+      --   -- for example to disable the custom builtin "codeactions" display
+      --      do the following
+      --   codeactions = false,
+      -- }
+    }
+  }
+}
+-- To get ui-select loaded and working with telescope, you need to call
+-- load_extension, somewhere after setup function:
+require("telescope").load_extension("ui-select")
+EOF
+
+
+lua <<EOF
+-- Bubbles config for lualine
+-- Author: lokesh-krishna
+-- MIT license, see LICENSE for more details.
+
+-- stylua: ignore
+--local colors = {
+--  blue   = '#80a0ff',
+--  cyan   = '#79dac8',
+--  black  = '#080808',
+--  white  = '#c6c6c6',
+--  red    = '#ff5189',
+--  violet = '#d183e8',
+--  grey   = '#303030',
+--}
+--
+--local bubbles_theme = {
+--  normal = {
+--    a = { fg = colors.white, bg = colors.dark },
+--    b = { fg = colors.white, bg = colors.dark },
+--    c = { fg = colors.white, bg = colors.dark },
+--  },
+--
+--  insert = {
+--    a = { fg = colors.white, bg = colors.dark },
+--    b = { fg = colors.white, bg = colors.dark },
+--    c = { fg = colors.white, bg = colors.dark },
+--  },
+--  visual = {
+--    a = { fg = colors.white, bg = colors.dark },
+--    b = { fg = colors.white, bg = colors.dark },
+--    c = { fg = colors.white, bg = colors.dark },
+--  },
+--  replace= {
+--    a = { fg = colors.white, bg = colors.dark },
+--    b = { fg = colors.white, bg = colors.dark },
+--    c = { fg = colors.white, bg = colors.dark },
+--  },
+--  inactive= {
+--    a = { fg = colors.white, bg = colors.dark },
+--    b = { fg = colors.white, bg = colors.dark },
+--    c = { fg = colors.white, bg = colors.dark },
+--  },
+--}
+--
+--require('lualine').setup {
+--  options = {
+--    theme = bubbles_theme,
+--    component_separators = '|',
+--    section_separators = { left = '', right = '' },
+--  },
+--  sections = {
+--    lualine_a = {
+--      { 'filename', separator = { left = '' }, right_padding = 2 },
+--    },
+--    lualine_b = {  },
+--    lualine_c = {  },
+--    lualine_x = {'branch'},
+--    lualine_y = { 'progress' },
+--    lualine_z = {
+--      { 'location', separator = { right = '' }, left_padding = 2 },
+--    },
+--  },
+--  inactive_sections = {
+--    lualine_a = { 'filename' },
+--    lualine_b = {},
+--    lualine_c = {},
+--    lualine_x = {},
+--    lualine_y = {},
+--    lualine_z = { 'location' },
+--  },
+--  tabline = {},
+--  extensions = {},
+--}
+
+EOF
+lua<<EOF
+require("gitsigns").setup {
+    signs = {
+        add = {hl = "DiffAdd", text = "▌", numhl = "GitSignsAddNr"},
+        change = {hl = "DiffChange", text = "▌", numhl = "GitSignsChangeNr"},
+        delete = {hl = "DiffDelete", text = "_", numhl = "GitSignsDeleteNr"},
+        topdelete = {hl = "DiffDelete", text = "‾", numhl = "GitSignsDeleteNr"},
+        changedelete = {hl = "DiffChange", text = "~", numhl = "GitSignsChangeNr"}
+    },
+    numhl = false,
+    watch_gitdir = {
+        interval = 100
+    },
+    sign_priority = 5,
+
+    status_formatter = nil, -- Use default
+
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    map('n', '[c', function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    -- Actions
+    map('n', '<leader>hs', gs.stage_hunk)
+    map('n', '<leader>hr', gs.reset_hunk)
+    map('v', '<leader>hs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('n', '<leader>hS', gs.stage_buffer)
+    map('n', '<leader>hu', gs.undo_stage_hunk)
+    map('n', '<leader>hR', gs.reset_buffer)
+    map('n', '<leader>hp', gs.preview_hunk)
+    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+    map('n', '<leader>tb', gs.toggle_current_line_blame)
+    map('n', '<leader>hd', gs.diffthis)
+    map('n', '<leader>hD', function() gs.diffthis('~') end)
+    map('n', '<leader>td', gs.toggle_deleted)
+
+    -- Text object
+    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end
+}
+
+local cmd = vim.cmd
+
+cmd "hi DiffAdd guifg=#81A1C1 guibg = none"
+cmd "hi DiffChange guifg =#3A3E44 guibg = none"
+cmd "hi DiffModified guifg = #81A1C1 guibg = none"
+
+
+EOF
+
+let g:AutoPairs['<']='>'

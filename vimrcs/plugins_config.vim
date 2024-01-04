@@ -6,6 +6,12 @@
 
 
 """"""""""""""""""""""""""""""
+" => Enable native vim packages as described in the README
+""""""""""""""""""""""""""""""
+set packpath+=~/.vim_runtime
+
+
+""""""""""""""""""""""""""""""
 " => Load pathogen paths
 """"""""""""""""""""""""""""""
 let s:vim_runtime = expand('<sfile>:p:h')."/.."
@@ -51,7 +57,7 @@ call pathogen#helptags()
 "map <leader>j :CtrlP<cr>
 
 "" Quickly find and open a buffer
-map <leader>b :CtrlPBuffer<cr>
+"map <leader>b :CtrlPBuffer<cr>
 
 "let g:ctrlp_max_height = 20
 "let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
