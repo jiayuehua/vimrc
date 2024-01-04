@@ -1,0 +1,194 @@
+[core]
+  repositoryformatversion = 0
+  filemode = true
+  bare = false
+  logallrefupdates = true
+  editor = vim
+  ;editor = \"C:/Program Files/GitExtensions/GitExtensions.exe\" fileeditor
+  excludesfile = ~/.gitignore
+  ;packedGitLimit = 512m
+  ;packedGitWindowSize = 512m
+  #autocrlf = true  ;;windows
+  autocrlf = input  ;;linux
+	fsyncMethod = batch
+	fsync = loose-object
+	pager = diff-so-fancy | less --tabs=2 -RFX
+  ;safecrlf = warn
+  ;whitespace = trailing-space,space-before-tab
+  ;attributesfile = /home/rob/.gitattributes
+  ;whitespace = space-before-tab
+  #gitproxy = /usr/local/bin/git-proxy-wrapper
+  #pager=delta
+[interactive]
+	diffFilter = diff-so-fancy --patch
+
+[delta]
+    features = decorations
+  line-numbers = true
+  side-by-side = true
+
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    commit-decoration-style = blue ol
+    commit-style = raw
+    file-style = omit
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number syntax 
+[user]
+  name = jiayuehua
+  email =3423893+jiayuehua@users.noreply.github.com 
+[merge]
+  tool = kdiff3
+	conflictStyle = diff3
+  ;tool = vimdiff
+;[mergetool "kdiff3"]
+  ;path = /usr/bin/kdiff3
+[mergetool]
+  prompt = false
+  keepBackup = false
+[diff]
+  #tool = kdiff3
+  tool = nvimdiff
+  prompt = false
+  ;noprefix = true
+[difftool "nvimdiff"]
+ # cmd = "nvim -d \"$local\" \"$remote\"" 
+    tool = vimdiff
+;[difftool "kdiff3"]
+    ;tool = kdiff3
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+	ui = true
+[credential]
+  ;helper = !\\\"C:/Program Files/GitExtensions/GitCredentialWinStore/git-credential-winstore.exe\\\"
+  ;helper = cache --timeout 3600
+  helper = store
+;[pack]
+    ;threads = 1
+    ;deltaCacheSize = 512m
+    ;packSizeLimit = 512m
+    ;windowMemory = 1024m
+[format]
+  pretty = format:%C(auto) %C(yellow)%h%Creset %C(green)(%ad)%Creset %C(yellow)%an%Creset  %s
+  ;pretty = format:%h %ad %an %s
+[log]
+  date = local
+[clean]
+  requireForce = false
+[alias]
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
+  amend = commit --amend --no-edit
+  unstage = restore --staged
+  promote = !$ZSH/bin/git-promote
+  wtf     = !$ZSH/bin/git-wtf
+  rank-contributors = !$ZSH/bin/git-rank-contributors
+  count   = !git shortlog -sn
+
+# Logic:
+#
+# The 'git stash save' fails if the tree is clean (instead of
+# creating an empty stash :P). So, we only 'stash' and 'pop' if
+# the tree is dirty.
+#
+# The 'git rebase --whitespace=fix HEAD~' throws away the commit
+# if it's empty, and adding '--keep-empty' prevents the whitespace
+# from being fixed. So, we first check that the index is dirty.
+#
+# Also:
+# - '(! git diff-index --quiet --cached HEAD)' is true (zero) if
+#   the index is dirty
+# - '(! git diff-files --quiet .)' is true if the tree is dirty
+#
+# The 'rebase --whitespace=fix' trick is from here:
+# http://stackoverflow.com/a/19156679/470844
+  fixws = !"\
+    if (! git diff-files --quiet .) && \
+    (! git diff-index --quiet --cached HEAD) ; then \
+    git commit -m FIXWS_SAVE_INDEX && \
+    git stash save FIXWS_SAVE_TREE && \
+    git rebase --whitespace=fix HEAD~ && \
+    git stash pop && \
+    git reset --soft HEAD~ ; \
+    elif (! git diff-index --quiet --cached HEAD) ; then \
+    git commit -m FIXWS_SAVE_INDEX && \
+    git rebase --whitespace=fix HEAD~ && \
+    git reset --soft HEAD~ ; \
+    fi"
+  info = remote -v show -n
+  vi = difftool -y -x vimdiff
+  mt = mergetool -y --tool vi
+  ls = log --name-status --pretty=format:'%C(yellow)%h%C(red)%d%Creset %s %C(blue)- %an, %ar%Creset'
+  hist = log --graph --pretty=format:'%C(yellow)%h%C(red)%d%Creset %s %C(blue)- %an, %ar%Creset'
+  tail = log --oneline --decorate --graph -10
+  loggrep = log --decorate --all-match -i --grep
+  pick = cherry-pick
+  ff = merge --ff-only
+  noff = merge --no-ff
+  tr = branch --set-upstream-to
+  url = "!git remote -v | perl -pe 's,(.*\\sgit@|.*://|\\.git .*),,g; s,:,/,' | sort -u"
+  fmtpatch = "!formatvcpkgpatch.sh"
+;[credential]
+[help]
+	autocorrect = 1
+[push]
+  default = simple
+[protocol]
+  version = 2
+;[apply]
+  ;whitespace = trailing-space,space-before-tab
+
+[filter "tabspace"]
+  ;clean =  jdclean.sh   ;; commit
+  ;smudge =  smudge.sh   ;; checkout
+  clean = clean.sh
+  smudge = smudge.sh
+  required = true
+[filter "jd_eol_tabspace"]
+  ;clean =  jdclean.sh   ;; commit
+  ;smudge =  smudge.sh   ;; checkout
+  clean =  cat
+  smudge = cat
+  required = true
+[filter "eol_tabspace"]
+  clean = clean.sh
+  smudge = smudge.sh
+  required = true
+;[commit]
+; template = /home/rob/.le.template
+;[http]
+  ;proxy = socks5://127.0.0.1:2080
+;[https]
+  ;proxy = socks5://127.0.0.1:2080
+[pull]
+	twohead = ort
+[scalar]
+	repo = /home/rob/gittest2
+[maintenance]
+	repo = /home/rob/gittest2
+[rebase]
+	updateRefs = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[fetch]
+	prune = true
